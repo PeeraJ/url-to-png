@@ -71,8 +71,16 @@ export class ImageRenderService implements OnApplicationShutdown {
 
       try {
         await page.goto(url, this.NAV_OPTIONS);
-        const screenshot = await page.screenshot({ fullPage: config.isFullPage });
-        image = await this.resize(screenshot, config.width, config.height);
+        const pdf = await page.pdf({
+          format: 'a4',
+          printBackground: true,
+          displayHeaderFooter: true,
+          headerTemplate: '<div></div>',
+          // this is needed to prevent content from being placed over the footer
+          margin: { bottom: '70px', top: '35px' },
+          scale: 1,
+      });
+        image = pdf
       } finally {
         await page.close();
       }

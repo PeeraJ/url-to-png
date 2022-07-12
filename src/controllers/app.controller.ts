@@ -87,7 +87,7 @@ export class AppController {
       }
     }
 
-    response.header("Content-Type", "image/png").send(imageBuffer);
+    response.header("Content-Type", "application/pdf").send(imageBuffer);
     return;
   }
 
